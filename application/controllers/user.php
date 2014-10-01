@@ -33,13 +33,8 @@ class User extends CI_Controller {
 
 	public function add($type = null) {
 		if ($this->input->post()) {
-			// バリデーション設定
-			$this->form_validation->set_rules('name', '名前', 'required|max_length[256]');
-			$this->form_validation->set_rules('password', 'パスワード', 'required|min_length[6]|max_length[256]');
-			$this->form_validation->set_rules('mail', 'メールアドレス', 'required|valid_email|max_length[256]');
-
 			// バリデート実行
-			if ($this->form_validation->run() == FALSE) {
+			if ($this->form_validation->run('user_add') == FALSE) {
 				// バリデートエラー
 				$this->load->view('user/add', $this->input->post());
 				return;
