@@ -36,7 +36,9 @@ class App_Model extends CI_Model {
 	public function set($data) {
 		if (is_array($data)) {
 			foreach ($data as $key => $val) {
-				$this->{$key} = $val;
+				if (property_exists($this, $key)) {
+					$this->{$key} = $val;
+				}
 			}
 		} else {
 			return FALSE;
