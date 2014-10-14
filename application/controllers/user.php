@@ -8,6 +8,9 @@ class User extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
+		// プロファイラをON
+		$this->output->enable_profiler(TRUE);
+
 		// helperをロード
 		$this->load->helper(array('form', 'url'));
 		// libraryをロード
@@ -31,6 +34,10 @@ class User extends CI_Controller {
 		$this->load->view('user/index', $data);
 	}
 
+	/**
+	 * 登録
+	 * @param string $type "confirm" or "complete"
+	 */
 	public function add($type = null) {
 		if ($this->input->post()) {
 			// バリデート実行
@@ -63,6 +70,22 @@ class User extends CI_Controller {
 		} else {
 			$this->load->view('user/add');
 			return;
+		}
+	}
+
+	/**
+	 * バッチ処理
+	 * @param mixed $param
+	 */
+	public function batch($param = null) {
+		if ($this->input->is_cli_request()) {
+			// CLIで実行された場合
+
+			$this->output->enable_profiler(false);
+			echo $param . "\n";
+		} else {
+			// HTTPアクセスなどは404へ
+			show_404();
 		}
 	}
 
