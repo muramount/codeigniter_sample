@@ -12,9 +12,10 @@ class User extends CI_Controller {
 		$this->output->enable_profiler(TRUE);
 
 		// helperをロード
-		$this->load->helper(array('form', 'url'));
+		$this->load->helper(array('html', 'form', 'url'));
 		// libraryをロード
 		$this->load->library(array('session', 'form_validation'));
+		$this->form_validation->set_error_delimiters('<p class="text-error">', '</p>');
 
 		// モデルを別名でロードする
 		$this->load->model('user_model', 'user');
@@ -63,7 +64,7 @@ class User extends CI_Controller {
 				$this->user->insert();
 
 				// 一覧で登録完了メッセージ表示
-				$this->session->set_flashdata('message', '登録しました');
+				$this->session->set_flashdata('message', 'completed registration.');
 				redirect('user/index');
 				return;
 			}
