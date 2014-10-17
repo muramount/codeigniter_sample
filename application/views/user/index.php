@@ -36,7 +36,7 @@
 						<ul class="dropdown-menu">
 							<li><?php echo anchor('user/view/' . $val->id, 'view'); ?></li>
 							<li><?php echo anchor('user/edit/' . $val->id, 'edit'); ?></li>
-							<li><?php echo anchor('user/delete/' . $val->id, 'delete'); ?></li>
+							<li><?php echo anchor('user/delete/' . $val->id, 'delete', array('data-toggle' => 'modal', 'data-target' => '#myModal')); ?></li>
 						</ul>
 					</div>
 				</td>
@@ -44,3 +44,17 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
+
+<!-- delete confirm modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="editModalLabel">delete confirm.</h4>
+			</div>
+			<div class="modal-body"><!-- remote view --></div>
+			<div class="modal-footer"></div>
+		</div>
+	</div>
+</div>

@@ -124,6 +124,55 @@ class User extends CI_Controller {
 	}
 
 	/**
+	 * 詳細
+	 * @param int $id id
+	 */
+	public function view($id) {
+		if (empty($id)) {
+			show_404();
+		}
+
+		$user = $this->user->find($id);
+		if (empty($user)) {
+			show_404();
+		}
+
+		$this->load->view('user/view', $user);
+		return;
+	}
+
+	/**
+	 * 削除
+	 * @param int $id id
+	 * @param string $type "confirm" or "complete"
+	 */
+	public function delete($id, $type = null) {
+
+		if (empty($id)) {
+			show_404();
+		}
+
+		$user = $this->user->find($id);
+		if (empty($user)) {
+			show_404();
+		}
+
+		if (!empty($type) && $type === 'complete') {
+			$this->user->delete($id);
+			// 一覧で削除完了メッセージ表示
+			$this->session->set_flashdata('message', 'deleted completed.');
+			redirect('/user/');
+			return;
+		}
+
+		$this->output->enable_profiler(false);
+		$this->load->set_header(null);
+		$this->load->set_footer(null);
+		$this->load->view('user/delete', $user);
+		return;
+	}
+
+	/**
 	 * バッチ処理
 	 * @param mixed $param
 	 */
