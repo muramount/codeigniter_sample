@@ -75,6 +75,55 @@ class User extends CI_Controller {
 	}
 
 	/**
+	 * 更新
+	 * @param int $id id
+	 * @param string $type "confirm" or "complete"
+	 */
+	public function edit($id, $type = null) {
+		if (empty($id)) {
+			show_404();
+		}
+
+		$user = $this->user->find($id);
+		if (empty($user)) {
+			show_404();
+		}
+
+		if ($this->input->post()) {
+			// バリデート実行
+			if ($this->form_validation->run('user_edit') == FALSE) {
+				// バリデートエラー
+				$this->load->view('user/edit', $this->input->post());
+				return;
+			}
+
+			if ($this->input->post('back')) {
+				// 確認画面の戻るボタン押下時
+				$this->load->view('user/edit', $this->input->post());
+				return;
+			}
+
+			if ($type == 'confirm') {
+				// 確認画面へ
+				$this->load->view('user/edit_confirm', $this->input->post());
+				return;
+			} else if ($type == 'complete') {
+				// 更新処理
+				$this->user->set($this->input->post());
+				$this->user->update($this->input->post('id'));
+
+				// 一覧で更新完了メッセージ表示
+				$this->session->set_flashdata('message', 'edited completed.');
+				redirect('user/index');
+				return;
+			}
+		} else {
+			$this->load->view('user/edit', $user);
+			return;
+		}
+	}
+
+	/**
 	 * バッチ処理
 	 * @param mixed $param
 	 */

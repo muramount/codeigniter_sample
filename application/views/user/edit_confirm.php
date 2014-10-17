@@ -1,5 +1,5 @@
 <blockquote>
-	<h1>user add confirm</h1>
+	<h1>user edit confirm</h1>
 </blockquote>
 
 <dl class="dl-horizontal">
@@ -10,7 +10,8 @@
 	<dt>mail</dt>
 	<dd><?php echo form_prep($mail); ?></dd>
 </dl>
-<?php echo form_open('/user/add/complete', array('name' => 'form1', 'class' => 'form-horizontal'));  // form開始 ?>
+<?php echo form_open('/user/edit/' . $id . '/complete', array('name' => 'form1', 'class' => 'form-horizontal'));  // form開始 ?>
+	<?php echo form_hidden('id', $id); ?>
 	<?php echo form_hidden('name', $name); ?>
 	<?php echo form_hidden('password', $password); ?>
 	<?php echo form_hidden('mail', $mail); ?>
