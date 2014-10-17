@@ -6,14 +6,17 @@
  * @property CI_Loader 
  */
 class App_Loader extends CI_Loader {
+	
+	private $_header_path;
+	private $_footer_path;
 
 	/**
 	 * constructor
 	 */
 	function __construct() {
 		parent::__construct();
-		$this->header_path = APPPATH . 'views/header.php';
-		$this->footer_path = APPPATH . 'views/footer.php';
+		$this->_header_path = APPPATH . 'views/header.php';
+		$this->_footer_path = APPPATH . 'views/footer.php';
 	}
 
 	/**
@@ -21,7 +24,7 @@ class App_Loader extends CI_Loader {
 	 * @param string $view
 	 */
 	public function set_header($view) {
-		$this->header_path = APPPATH . 'views/' . $view . '.php';
+		$this->_header_path = APPPATH . 'views/' . $view . '.php';
 	}
 
 	/**
@@ -29,7 +32,7 @@ class App_Loader extends CI_Loader {
 	 * @param string $view
 	 */
 	public function set_footer($view) {
-		$this->footer_path = APPPATH . 'views/' . $view . '.php';
+		$this->_footer_path = APPPATH . 'views/' . $view . '.php';
 	}
 
 	/**
@@ -41,16 +44,16 @@ class App_Loader extends CI_Loader {
 		$ci->router->fetch_class(); // Get class
 		$ci->router->fetch_method(); // Get action
 
-		if (file_exists($this->header_path)) {
+		if (file_exists($this->_header_path)) {
 			// ヘッダーファイルあればロード
-			$this->_ci_load(array('_ci_path' => $this->header_path, '_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+			$this->_ci_load(array('_ci_path' => $this->_header_path, '_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
 		}
 
 		$body = $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
 
-		if (file_exists($this->footer_path)) {
+		if (file_exists($this->_footer_path)) {
 			// フッターファイルあればロード
-			$this->_ci_load(array('_ci_path' => $this->footer_path, '_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+			$this->_ci_load(array('_ci_path' => $this->_footer_path, '_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
 		}
 
 		if ($return) {
