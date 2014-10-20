@@ -36,7 +36,8 @@
 						<ul class="dropdown-menu">
 							<li><?php echo anchor('user/view/' . $val->id, 'view'); ?></li>
 							<li><?php echo anchor('user/edit/' . $val->id, 'edit'); ?></li>
-							<li><?php echo anchor('user/delete/' . $val->id, 'delete', array('data-toggle' => 'modal', 'data-target' => '#myModal')); ?></li>
+							<!--<li><?php echo anchor('user/delete/' . $val->id, 'delete', array('data-toggle' => 'modal', 'data-target' => '#myModal')); ?></li>-->
+							<li><?php echo anchor('user/delete/' . $val->id . '/complete', 'delete', array('onclick' => "return confirm('本当に削除しますか？');")); ?></li>
 						</ul>
 					</div>
 				</td>
