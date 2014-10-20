@@ -96,7 +96,7 @@ class App_Model extends CI_Model {
 	 * @return array
 	 */
 	public function find_all() {
-		return $this->db->get($this->_table)->result();
+		return $this->db->order_by('id')->get($this->_table)->result();
 	}
 
 	/**
@@ -121,6 +121,26 @@ class App_Model extends CI_Model {
 	}
 
 	/**
+	 * table record all count
+	 * 
+	 * @return int
+	 */
+	public function count_all() {
+		return $this->db->count_all_results($this->_table);
+	}
+
+	/**
+	 * table record all count
+	 * 
+	 * @param int $offset
+	 * @param int $limit
+	 * @return stdClass
+	 */
+	public function find_offset_list($offset = 0, $limit = 10) {
+		return $this->db->offset($offset)->limit($limit)->order_by('id')->get($this->_table)->result();
+	}
+
+	/**
 	 * now
 	 * 
 	 * @return string
@@ -128,6 +148,7 @@ class App_Model extends CI_Model {
 	public function now() {
 		return date('Y-m-d H:i:s');
 	}
+
 }
 
 /* End of file App_Model.php */
