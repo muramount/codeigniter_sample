@@ -25,11 +25,21 @@ class User extends CI_Controller {
 	 * 一覧
 	 */
 	public function index() {
+
 		// viewに渡す値
 		$data = array();
 
+		// pagination設定
+		$this->load->library('pagination');
+		$limit = 10;  // 1ページに表示する件数
+		$offset = $this->uri->segment(3);  // 表示するOffset取得
+		$config['base_url'] = strtolower(base_url() . DIRECTORY_SEPARATOR . __CLASS__ . DIRECTORY_SEPARATOR . __FUNCTION__);
+		$config['total_rows'] = $this->user->count_all();  // 総件数
+		$config['per_page'] = $limit;
+		$this->pagination->initialize($config);
+
 		// user一覧取得
-		$data['users'] = $this->user->find_all();
+		$data['users'] = $this->user->find_offset_list($offset, $limit);
 
 		// viewにセット
 		$this->load->view('user/index', $data);

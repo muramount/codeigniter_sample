@@ -9,6 +9,8 @@
 	</div>
 <?php endif; ?>
 
+<?php echo $this->pagination->create_links(); ?>
+
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -45,6 +47,8 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
+
+<?php echo $this->pagination->create_links(); ?>
 
 <!-- delete confirm modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
