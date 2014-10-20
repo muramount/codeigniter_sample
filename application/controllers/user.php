@@ -3,19 +3,10 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class User extends App_Controller {
 
 	public function __construct() {
 		parent::__construct();
-
-		// プロファイラをON
-		$this->output->enable_profiler(TRUE);
-
-		// helperをロード
-		$this->load->helper(array('html', 'form', 'url'));
-		// libraryをロード
-		$this->load->library(array('session', 'form_validation'));
-		$this->form_validation->set_error_delimiters('<p class="text-error">', '</p>');
 
 		// モデルを別名でロードする
 		$this->load->model('user_model', 'user');
